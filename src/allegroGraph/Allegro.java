@@ -1,3 +1,4 @@
+package allegroGraph;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,7 +7,6 @@ import org.openrdf.model.Literal;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
-import org.openrdf.model.vocabulary.XMLSchema;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 
@@ -21,7 +21,7 @@ public class Allegro {
 	private static final String CATALOG_ID = "";
 	private static final String REPOSITORY_ID = "qodra";
 	private static final String USERNAME = "super";
-	private static final String PASSWORD = "DAmgNj";
+	private static final String PASSWORD = "1234";
 	
 	
 	private static List<RepositoryConnection> toClose = new ArrayList<RepositoryConnection>();
@@ -33,7 +33,7 @@ public class Allegro {
 		
 		AGServer server = new AGServer(SERVER_URL, USERNAME, PASSWORD);	
 		
-		System.out.println("Server version: " + server.getVersion());
+		//System.out.println("Server version: " + server.getVersion());
 		//System.out.println("Server build date: " + server.getBuildDate());
 		//System.out.println("Server revision: " + server.getRevision());
 		//System.out.println("Available catalogs: " + server.listCatalogs());
@@ -46,7 +46,7 @@ public class Allegro {
         AGRepositoryConnection conn = myRepository.getConnection();
         this.conn = conn;
         closeBeforeExit(this.conn);
-        System.out.println("Successfully connected");
+       // System.out.println("Successfully connected");
     }
 	
 	//adiciona um statement ao repositório
@@ -70,7 +70,7 @@ public class Allegro {
 	public void addStament(Statement stmt)throws RepositoryException{
 		conn.add(stmt);
 		conn.deleteDuplicates(null);
-		System.out.println("New Statement added on qodra.");
+		//System.out.println("New Statement added on qodra.");
 	}
 	
 	public void addNt(String nt)throws RepositoryException{
@@ -96,6 +96,22 @@ public class Allegro {
 		scanner.close();
 	}
 	
+	
+	public void deletePredicate(String p) throws RepositoryException{
+		
+		ValueFactory vf = conn.getRepository().getValueFactory();
+		
+		URI predicate = vf.createURI(p);
+		
+		conn.deletePredicateMapping(predicate);
+		
+		conn.removeNamespace(p);
+		
+		conn.commit();
+		
+		
+	}
+	
 	private void closeBeforeExit(RepositoryConnection conn) {
         toClose.add(conn);
     }
@@ -103,7 +119,7 @@ public class Allegro {
 	private void close(RepositoryConnection conn) {
         try {
             conn.close();
-            System.out.println("Reposytory closed");
+            //System.out.println("Reposytory closed");
         } catch (Exception e) {
             System.err.println("Error closing repository connection: " + e);
             e.printStackTrace();

@@ -18,10 +18,9 @@ Data: 10/03/16
 Inicialização:
 
 Pre-requisitos:
--Servidor Apche ActiveMQ em funcionamento
+-Servidor Apache ActiveMQ em funcionamento
 
 executar com o comando:
  # java -jar rdfStore.jar
-
 
 
