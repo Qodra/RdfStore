@@ -51,6 +51,12 @@ public class Allegro {
 	
 	//adiciona um statement ao repositório
 	public void addTriple(String s, String p, String o) throws RepositoryException{
+		
+		if (s.isEmpty() || p.isEmpty() || o.isEmpty() || s==null || p ==null || o ==null){
+			System.out.println("Uma ou mais partes da tripla é nula\nInserção abortada");
+			return;
+		}
+		
 		ValueFactory vf = conn.getRepository().getValueFactory();
 		
 		URI subject   = vf.createURI(s);
@@ -75,24 +81,25 @@ public class Allegro {
 	
 	public void addNt(String nt)throws RepositoryException{
 		Scanner scanner = new Scanner(nt);
+		
 		scanner.useDelimiter("<");
-		while (scanner.hasNext()){
-			String s=null,p=null,o=null;
-			
-			if (scanner.hasNext()){
-				s = scanner.next();
-				s = s.replace(">", "").replaceAll(" ", "");
-			}
-			if (scanner.hasNext()){
-				p = scanner.next();
-				p = p.replace(">", "").replaceAll(" ", "");
-			}
-			if (scanner.hasNext()){
-				o = scanner.next();
-				o = o.replace(">", "");
-			}
-			addTriple(s, p, o);
+		
+		String s=null,p=null,o=null;
+		
+		if (scanner.hasNext()){
+			s = scanner.next();
+			s = s.replace(">", "").replaceAll(" ", "");
 		}
+		if (scanner.hasNext()){
+			p = scanner.next();
+			p = p.replace(">", "").replaceAll(" ", "");
+		}
+		if (scanner.hasNext()){
+			o = scanner.next();
+			o = o.replace(">", "");
+		}
+		
+		addTriple(s, p, o);
 		scanner.close();
 	}
 	

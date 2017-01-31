@@ -36,6 +36,7 @@ public class BuscaRelacoes {
                 listaVideos.add(video);
                 
                 System.out.print(".");//progresso
+                //video.imprimirRelacionados();
             }
 
             return listaVideos;

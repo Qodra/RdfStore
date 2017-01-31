@@ -402,6 +402,7 @@ public class GetVideosUFJF {
  
           for (String ret:retorno) {
         	 properties = ret.split(",");
+        	 if (properties[0].equals(sujeito)) continue;
              Video v = new Video(properties[0]);
              properties[1] = properties[1].replace("\\", "");
              v.setTotalCategoriaRelacionadas(Integer.parseInt(properties[1]));

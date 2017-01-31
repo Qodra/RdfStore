@@ -247,6 +247,7 @@ public class Video {
     }
 
     private void addVideoRelacionadoRanking(String idVideo) throws UnsupportedEncodingException{
+    	if (this.id.equals(idVideo)) return;
         Video video = new Video(idVideo);
 /*
         ArrayList<String> categoriasVideoRelacionado = video.getCategories();
@@ -326,6 +327,15 @@ public class Video {
     
     public long getTempoDBPedia(){
     	return tempoDBPedia;
+    }
+    
+    public void imprimirRelacionados(){
+    	System.out.println("Video \t Video Relacionado \t Quantidades de categorias");
+    	
+    	for (Video v: this.getVideosRelacionadosRank()){
+    		System.out.println(this.id + "\t"+ v.getId() + "\t" + v.getTotalCategoriaRelacionadas());
+    	}
+    	
     }
 
 }

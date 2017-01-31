@@ -53,7 +53,7 @@ public class Main {
 			AllegroTest teste = new AllegroTest();
 			
 			if (teste.testaConexao()){
-				int alfa = 0;
+				int alfa = 1;
 				int beta = 0;
 				getResourcesDBPedia(alfa, beta);
 				runTests();
@@ -114,9 +114,9 @@ public class Main {
 		Video video;
 		
 		for (String id : idVideos){
-			System.out.println("\n\nRecuperando referências <dcterms:references> para: "+idVideos); 
+			System.out.println("\n\nRecuperando referências <dcterms:references> para: "+id); 
 			video = new Video(id);
-			System.out.print("Referências recuperadas...\nExplorando DBPedia:"); 
+			System.out.print("Referências recuperadas.\nBuscando na DBPedia:"); 
 			video.setReferences(GetVideosUFJF.getRefences(id));
 			
 			DBPedia.getResourcesRelated(video, alfa, beta);
